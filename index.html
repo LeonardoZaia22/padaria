@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Padaria Doce Sabor</title>
+  <style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: "Poppins", Arial, sans-serif;
+      background: linear-gradient(135deg, #f8e1d4, #fcefe9);
+      color: #333;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+      margin: 60px auto;
+      padding: 30px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.8s ease-in-out;
+    }
+
+    h2 { text-align: center; margin-bottom: 20px; color: #6b2e1f; }
+
+    label {
+      font-weight: bold; color: #6b2e1f;
+      display: block; margin-top: 10px;
+    }
+
+    input {
+      width: 100%; padding: 12px; margin: 8px 0;
+      border-radius: 10px; border: 1px solid #bbb;
+      outline: none; transition: 0.3s;
+    }
+
+    input:focus { border-color: #6b2e1f; box-shadow: 0 0 5px #6b2e1f77; }
+
+    button {
+      width: 100%; padding: 14px; background: #6b2e1f;
+      color: white; border: none; border-radius: 25px;
+      cursor: pointer; font-size: 16px; margin-top: 15px;
+      transition: 0.3s;
+    }
+    button:hover { background: #4d2015; transform: scale(1.05); }
+
+    nav {
+      background: #6b2e1f; color: white; padding: 15px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+
+    nav h1 { font-size: 22px; }
+
+    .menu {
+      display: flex; gap: 15px;
+    }
+
+    .menu button {
+      background: #fff; color: #6b2e1f;
+      padding: 8px 16px; border-radius: 15px;
+      border: none; font-size: 14px; font-weight: bold;
+      cursor: pointer; transition: 0.3s;
+    }
+
+    .menu button:hover { background: #f2c6b4; }
+
+    .padaria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+      padding: 30px;
+    }
+
+    .produto {
+      background: white; padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+
+    .produto:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .produto img {
+      width: 100%; height: 180px; object-fit: cover;
+      border-radius: 12px; margin-bottom: 12px;
+    }
+
+    .produto h3 { color: #6b2e1f; margin-bottom: 8px; }
+
+    .descricao {
+      display: none;
+      margin-top: 10px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .perfil {
+      padding: 30px;
+    }
+
+    .perfil h2 {
+      margin-bottom: 15px;
+      color: #6b2e1f;
+    }
+
+    .perfil p {
+      margin: 8px 0;
+      font-size: 15px;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Tela Cadastro -->
+  <div id="cadastro" class="container hidden">
+    <h2>Cadastro de Funcionário</h2>
+    <label>Nome</label>
+    <input type="text" id="nome">
+    <label>Telefone</label>
+    <input type="text" id="telefone">
+    <label>Email</label>
+    <input type="email" id="emailCadastro">
+    <label>Senha</label>
+    <input type="password" id="senhaCadastro">
+    <label>Rua</label>
+    <input type="text" id="rua">
+    <label>Nº</label>
+    <input type="text" id="numero">
+    <label>Complemento</label>
+    <input type="text" id="complemento">
+    <label>CEP</label>
+    <input type="text" id="cep">
+    <button onclick="criarConta()">Cadastrar</button>
+  </div>
+
+  <!-- Tela Login -->
+  <div id="login" class="container hidden">
+    <h2>Login</h2>
+    <label>Email</label>
+    <input type="email" id="emailLogin">
+    <label>Senha</label>
+    <input type="password" id="senhaLogin">
+    <button onclick="fazerLogin()">Entrar</button>
+    <button onclick="mostrarCadastro()" style="margin-top:10px; background:#6b2e1f;">Criar Conta</button>
+  </div>
+
+  <!-- Site Padaria -->
+  <div id="sitePadaria" class="hidden">
+    <nav>
+      <h1>🍞 Padaria Doce Sabor 🍰</h1>
+      <div class="menu">
+        <button onclick="mostrarLoja()">Loja</button>
+        <button onclick="mostrarPerfil()">Perfil</button>
+        <button onclick="mostrarPerfilAdm()">Admin</button>
+        <button onclick="logout()">Sair</button>
+      </div>
+    </nav>
+
+    <!-- Loja -->
+    <div id="loja" class="padaria">
+      <div class="produto" onclick="toggleDescricao(this)">
+        <img src="img/img01.jpeg" alt="Bolo">
+        <h3>Bolo de Chocolate</h3>
+        <p><strong>R$ 35,00</strong></p>
+        <div class="descricao">Bolo fofinho de chocolate com cobertura cremosa.</div>
+      </div>
+      <div class="produto" onclick="toggleDescricao(this)">
+        <img src="img/img02.jpeg" alt="Pão">
+        <h3>Pães Fresquinhos</h3>
+        <p><strong>R$ 8,00</strong></p>
+        <div class="descricao">Pães artesanais assados na hora, crocantes por fora e macios por dentro.</div>
+      </div>
+      <div class="produto" onclick="toggleDescricao(this)">
+        <img src="img/img03.jpeg" alt="Torta">
+        <h3>Torta de Morango</h3>
+        <p><strong>R$ 45,00</strong></p>
+        <div class="descricao">Torta com recheio leve de creme e cobertura de morangos frescos.</div>
+      </div>
+      <div class="produto" onclick="toggleDescricao(this)">
+        <img src="img/img04.jpeg" alt="Croissant">
+        <h3>Croissant</h3>
+        <p><strong>R$ 6,00</strong></p>
+        <div class="descricao">Folhado amanteigado, crocante e irresistível.</div>
+      </div>
+      <div class="produto" onclick="toggleDescricao(this)">
+        <img src="img/img05.jpeg" alt="Café">
+        <h3>Café Especial</h3>
+        <p><strong>R$ 5,00</strong></p>
+        <div class="descricao">Café de grãos selecionados, com aroma intenso e sabor encorpado.</div>
+      </div>
+      <div class="produto" onclick="toggleDescricao(this)">
+        <img src="img/img06.jpeg" alt="Brigadeiro">
+        <h3>Brigadeiro Gourmet</h3>
+        <p><strong>R$ 3,00</strong></p>
+        <div class="descricao">Tradicional doce brasileiro feito com chocolate e leite condensado.</div>
+      </div>
+    </div>
+
+    <!-- Perfil do usuário -->
+    <div id="perfil" class="perfil hidden">
+      <h2>Meu Perfil</h2>
+      <p><strong>Nome:</strong> <span id="pNome"></span></p>
+      <p><strong>Telefone:</strong> <span id="pTelefone"></span></p>
+      <p><strong>Email:</strong> <span id="pEmail"></span></p>
+      <p><strong>Rua:</strong> <span id="pRua"></span></p>
+      <p><strong>Nº:</strong> <span id="pNumero"></span></p>
+      <p><strong>Complemento:</strong> <span id="pComplemento"></span></p>
+      <p><strong>CEP:</strong> <span id="pCep"></span></p>
+    </div>
+
+    <!-- Tela de Administração -->
+    <div id="perfilAdm" class="perfil hidden">
+      <h2>Área do Administrador</h2>
+      <label>Nome</label>
+      <input type="text" id="admNome">
+      <label>Telefone</label>
+      <input type="text" id="admTelefone">
+      <label>Email</label>
+      <input type="email" id="admEmail">
+      <label>Senha</label>
+      <input type="password" id="admSenha">
+      <label>Rua</label>
+      <input type="text" id="admRua">
+      <label>Nº</label>
+      <input type="text" id="admNumero">
+      <label>Complemento</label>
+      <input type="text" id="admComplemento">
+      <label>CEP</label>
+      <input type="text" id="admCep">
+      
+      <button onclick="salvarInformacoes()">Salvar Alterações</button>
+      <button onclick="apagarConta()" style="background:#c0392b;">Apagar Conta</button>
+    </div>
+  </div>
+
+  <script>
+    function criarConta() {
+      const dados = {
+        nome: document.getElementById("nome").value,
+        telefone: document.getElementById("telefone").value,
+        email: document.getElementById("emailCadastro").value,
+        senha: document.getElementById("senhaCadastro").value,
+        rua: document.getElementById("rua").value,
+        numero: document.getElementById("numero").value,
+        complemento: document.getElementById("complemento").value,
+        cep: document.getElementById("cep").value,
+      };
+
+      if (dados.email && dados.senha) {
+        localStorage.setItem("usuario", JSON.stringify(dados));
+        alert("Cadastro realizado com sucesso!");
+        document.getElementById("cadastro").classList.add("hidden");
+        document.getElementById("login").classList.remove("hidden");
+      } else {
+        alert("Preencha todos os campos obrigatórios!");
+      }
+    }
+
+    function fazerLogin() {
+      const emailLogin = document.getElementById("emailLogin").value;
+      const senhaLogin = document.getElementById("senhaLogin").value;
+
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+
+      if (usuario && emailLogin === usuario.email && senhaLogin === usuario.senha) {
+        alert("Login realizado com sucesso!");
+        document.getElementById("login").classList.add("hidden");
+        document.getElementById("sitePadaria").classList.remove("hidden");
+      } else {
+        alert("Email ou senha incorretos!");
+      }
+    }
+
+    function logout() {
+      document.getElementById("sitePadaria").classList.add("hidden");
+      document.getElementById("login").classList.remove("hidden");
+    }
+
+    function mostrarLoja() {
+      document.getElementById("loja").classList.remove("hidden");
+      document.getElementById("perfil").classList.add("hidden");
+      document.getElementById("perfilAdm").classList.add("hidden");
+    }
+
+    function mostrarPerfil() {
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      if (usuario) {
+        document.getElementById("pNome").textContent = usuario.nome;
+        document.getElementById("pTelefone").textContent = usuario.telefone;
+        document.getElementById("pEmail").textContent = usuario.email;
+        document.getElementById("pRua").textContent = usuario.rua;
+        document.getElementById("pNumero").textContent = usuario.numero;
+        document.getElementById("pComplemento").textContent = usuario.complemento;
+        document.getElementById("pCep").textContent = usuario.cep;
+      }
+      document.getElementById("perfil").classList.remove("hidden");
+      document.getElementById("loja").classList.add("hidden");
+      document.getElementById("perfilAdm").classList.add("hidden");
+    }
+
+    function mostrarPerfilAdm() {
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      if (usuario) {
+        document.getElementById("admNome").value = usuario.nome;
+        document.getElementById("admTelefone").value = usuario.telefone;
+        document.getElementById("admEmail").value = usuario.email;
+        document.getElementById("admSenha").value = usuario.senha;
+        document.getElementById("admRua").value = usuario.rua;
+        document.getElementById("admNumero").value = usuario.numero;
+        document.getElementById("admComplemento").value = usuario.complemento;
+        document.getElementById("admCep").value = usuario.cep;
+      }
+      document.getElementById("perfilAdm").classList.remove("hidden");
+      document.getElementById("loja").classList.add("hidden");
+      document.getElementById("perfil").classList.add("hidden");
+    }
+
+    function salvarInformacoes() {
+      const usuarioAtualizado = {
+        nome: document.getElementById("admNome").value,
+        telefone: document.getElementById("admTelefone").value,
+        email: document.getElementById("admEmail").value,
+        senha: document.getElementById("admSenha").value,
+        rua: document.getElementById("admRua").value,
+        numero: document.getElementById("admNumero").value,
+        complemento: document.getElementById("admComplemento").value,
+        cep: document.getElementById("admCep").value,
+      };
+
+      localStorage.setItem("usuario", JSON.stringify(usuarioAtualizado));
+      alert("Informações atualizadas com sucesso!");
+    }
+
+    function apagarConta() {
+      if (confirm("Tem certeza que deseja apagar esta conta?")) {
+        localStorage.removeItem("usuario");
+        alert("Conta apagada com sucesso!");
+        document.getElementById("sitePadaria").classList.add("hidden");
+        mostrarCadastro(); // Volta para tela de cadastro
+      }
+    }
+
+    function toggleDescricao(card) {
+      const desc = card.querySelector(".descricao");
+      desc.style.display = desc.style.display === "block" ? "none" : "block";
+    }
+
+    function mostrarCadastro() {
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById("cadastro").classList.remove("hidden");
+    }
+
+    // Inicialização
+    window.onload = function() {
+      const usuario = localStorage.getItem("usuario");
+      if (!usuario) {
+        mostrarCadastro(); // Se não tiver usuário, abre cadastro
+      } else {
+        document.getElementById("login").classList.remove("hidden");
+      }
+    }
+  </script>
+</body>
+</html>
