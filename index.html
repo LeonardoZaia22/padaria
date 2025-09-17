@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Padaria Doce Sabor</title>
   <style>
-    /* Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
     body {
@@ -54,9 +53,7 @@
 
     nav h1 { font-size: 22px; }
 
-    .menu {
-      display: flex; gap: 15px;
-    }
+    .menu { display: flex; gap: 15px; }
 
     .menu button {
       background: #fff; color: #6b2e1f;
@@ -102,19 +99,14 @@
       color: #444;
     }
 
-    .perfil {
-      padding: 30px;
-    }
+    .perfil { padding: 30px; }
 
     .perfil h2 {
       margin-bottom: 15px;
       color: #6b2e1f;
     }
 
-    .perfil p {
-      margin: 8px 0;
-      font-size: 15px;
-    }
+    .perfil p { margin: 8px 0; font-size: 15px; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
@@ -122,11 +114,13 @@
     }
 
     .hidden { display: none; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+    .card { background: #fff; padding: 15px; border-radius: 10px; box-shadow: 0 3px 8px rgba(0,0,0,0.1); }
   </style>
 </head>
 <body>
 
-  <!-- Tela Cadastro -->
+  <!-- Cadastro -->
   <div id="cadastro" class="container hidden">
     <h2>Cadastro de Funcionário</h2>
     <label>Nome</label>
@@ -148,7 +142,7 @@
     <button onclick="criarConta()">Cadastrar</button>
   </div>
 
-  <!-- Tela Login -->
+  <!-- Login -->
   <div id="login" class="container hidden">
     <h2>Login</h2>
     <label>Email</label>
@@ -159,7 +153,7 @@
     <button onclick="mostrarCadastro()" style="margin-top:10px; background:#6b2e1f;">Criar Conta</button>
   </div>
 
-  <!-- Site Padaria -->
+  <!-- Site -->
   <div id="sitePadaria" class="hidden">
     <nav>
       <h1>🍞 Padaria Doce Sabor 🍰</h1>
@@ -172,208 +166,180 @@
     </nav>
 
     <!-- Loja -->
-    <div id="loja" class="padaria">
-      <div class="produto" onclick="toggleDescricao(this)">
-        <img src="img/img01.jpeg" alt="Bolo">
-        <h3>Bolo de Chocolate</h3>
-        <p><strong>R$ 35,00</strong></p>
-        <div class="descricao">Bolo fofinho de chocolate com cobertura cremosa.</div>
-      </div>
-      <div class="produto" onclick="toggleDescricao(this)">
-        <img src="img/img02.jpeg" alt="Pão">
-        <h3>Pães Fresquinhos</h3>
-        <p><strong>R$ 8,00</strong></p>
-        <div class="descricao">Pães artesanais assados na hora, crocantes por fora e macios por dentro.</div>
-      </div>
-      <div class="produto" onclick="toggleDescricao(this)">
-        <img src="img/img03.jpeg" alt="Torta">
-        <h3>Torta de Morango</h3>
-        <p><strong>R$ 45,00</strong></p>
-        <div class="descricao">Torta com recheio leve de creme e cobertura de morangos frescos.</div>
-      </div>
-      <div class="produto" onclick="toggleDescricao(this)">
-        <img src="img/img04.jpeg" alt="Croissant">
-        <h3>Croissant</h3>
-        <p><strong>R$ 6,00</strong></p>
-        <div class="descricao">Folhado amanteigado, crocante e irresistível.</div>
-      </div>
-      <div class="produto" onclick="toggleDescricao(this)">
-        <img src="img/img05.jpeg" alt="Café">
-        <h3>Café Especial</h3>
-        <p><strong>R$ 5,00</strong></p>
-        <div class="descricao">Café de grãos selecionados, com aroma intenso e sabor encorpado.</div>
-      </div>
-      <div class="produto" onclick="toggleDescricao(this)">
-        <img src="img/img06.jpeg" alt="Brigadeiro">
-        <h3>Brigadeiro Gourmet</h3>
-        <p><strong>R$ 3,00</strong></p>
-        <div class="descricao">Tradicional doce brasileiro feito com chocolate e leite condensado.</div>
-      </div>
-    </div>
+    <div id="loja" class="padaria"></div>
 
-    <!-- Perfil do usuário -->
+    <!-- Perfil -->
     <div id="perfil" class="perfil hidden">
-      <h2>Meu Perfil</h2>
-      <p><strong>Nome:</strong> <span id="pNome"></span></p>
-      <p><strong>Telefone:</strong> <span id="pTelefone"></span></p>
-      <p><strong>Email:</strong> <span id="pEmail"></span></p>
-      <p><strong>Rua:</strong> <span id="pRua"></span></p>
-      <p><strong>Nº:</strong> <span id="pNumero"></span></p>
-      <p><strong>Complemento:</strong> <span id="pComplemento"></span></p>
-      <p><strong>CEP:</strong> <span id="pCep"></span></p>
+      <h2>Alterar Perfil</h2>
+      <label>Nome</label><input type="text" id="pNome">
+      <label>Telefone</label><input type="text" id="pTelefone">
+      <label>Email</label><input type="email" id="pEmail">
+      <label>Rua</label><input type="text" id="pRua">
+      <label>Nº</label><input type="text" id="pNumero">
+      <label>Complemento</label><input type="text" id="pComplemento">
+      <label>CEP</label><input type="text" id="pCep">
+      <button onclick="salvarPerfil()">Salvar Alterações</button>
     </div>
 
-    <!-- Tela de Administração -->
+    <!-- Admin -->
     <div id="perfilAdm" class="perfil hidden">
       <h2>Área do Administrador</h2>
-      <label>Nome</label>
-      <input type="text" id="admNome">
-      <label>Telefone</label>
-      <input type="text" id="admTelefone">
-      <label>Email</label>
-      <input type="email" id="admEmail">
-      <label>Senha</label>
-      <input type="password" id="admSenha">
-      <label>Rua</label>
-      <input type="text" id="admRua">
-      <label>Nº</label>
-      <input type="text" id="admNumero">
-      <label>Complemento</label>
-      <input type="text" id="admComplemento">
-      <label>CEP</label>
-      <input type="text" id="admCep">
-      
-      <button onclick="salvarInformacoes()">Salvar Alterações</button>
-      <button onclick="apagarConta()" style="background:#c0392b;">Apagar Conta</button>
+      <div id="adminProdutos" class="grid"></div>
+      <button onclick="salvarProdutos()">Salvar Alterações</button>
     </div>
   </div>
 
-  <script>
-    function criarConta() {
-      const dados = {
-        nome: document.getElementById("nome").value,
-        telefone: document.getElementById("telefone").value,
-        email: document.getElementById("emailCadastro").value,
-        senha: document.getElementById("senhaCadastro").value,
-        rua: document.getElementById("rua").value,
-        numero: document.getElementById("numero").value,
-        complemento: document.getElementById("complemento").value,
-        cep: document.getElementById("cep").value,
-      };
+<script>
+async function criarConta() {
+  const dados = {
+    nome: document.getElementById("nome").value,
+    telefone: document.getElementById("telefone").value,
+    email: document.getElementById("emailCadastro").value,
+    senha: document.getElementById("senhaCadastro").value,
+    rua: document.getElementById("rua").value,
+    numero: document.getElementById("numero").value,
+    complemento: document.getElementById("complemento").value,
+    cep: document.getElementById("cep").value,
+  };
 
-      if (dados.email && dados.senha) {
-        localStorage.setItem("usuario", JSON.stringify(dados));
-        alert("Cadastro realizado com sucesso!");
-        document.getElementById("cadastro").classList.add("hidden");
-        document.getElementById("login").classList.remove("hidden");
-      } else {
-        alert("Preencha todos os campos obrigatórios!");
-      }
-    }
+  const r = await fetch("api/cadastro.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dados)
+  }).then(res => res.json());
 
-    function fazerLogin() {
-      const emailLogin = document.getElementById("emailLogin").value;
-      const senhaLogin = document.getElementById("senhaLogin").value;
+  if (r.status === "ok") {
+    alert("Cadastro realizado com sucesso!");
+    document.getElementById("cadastro").classList.add("hidden");
+    document.getElementById("login").classList.remove("hidden");
+  } else {
+    alert("Erro no cadastro!");
+  }
+}
 
-      const usuario = JSON.parse(localStorage.getItem("usuario"));
+async function fazerLogin() {
+  const email = document.getElementById("emailLogin").value;
+  const senha = document.getElementById("senhaLogin").value;
 
-      if (usuario && emailLogin === usuario.email && senhaLogin === usuario.senha) {
-        alert("Login realizado com sucesso!");
-        document.getElementById("login").classList.add("hidden");
-        document.getElementById("sitePadaria").classList.remove("hidden");
-      } else {
-        alert("Email ou senha incorretos!");
-      }
-    }
+  const r = await fetch("api/login.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ email, senha })
+  }).then(res => res.json());
 
-    function logout() {
-      document.getElementById("sitePadaria").classList.add("hidden");
-      document.getElementById("login").classList.remove("hidden");
-    }
+  if (r.status === "ok") {
+    window.usuario = r.usuario;
+    document.getElementById("login").classList.add("hidden");
+    document.getElementById("sitePadaria").classList.remove("hidden");
+    carregarProdutos();
+  } else {
+    alert("Email ou senha incorretos!");
+  }
+}
 
-    function mostrarLoja() {
-      document.getElementById("loja").classList.remove("hidden");
-      document.getElementById("perfil").classList.add("hidden");
-      document.getElementById("perfilAdm").classList.add("hidden");
-    }
+async function carregarProdutos() {
+  const produtos = await fetch("api/produtos.php").then(r => r.json());
+  const loja = document.getElementById("loja");
+  loja.innerHTML = "";
+  produtos.forEach(p => {
+    loja.innerHTML += `
+      <div class="produto" onclick="toggleDescricao(this)">
+        <img src="${p.img}" alt="${p.nome}">
+        <h3>${p.nome}</h3>
+        <p><strong>R$ ${p.preco}</strong></p>
+        <div class="descricao">${p.descricao}</div>
+      </div>`;
+  });
 
-    function mostrarPerfil() {
-      const usuario = JSON.parse(localStorage.getItem("usuario"));
-      if (usuario) {
-        document.getElementById("pNome").textContent = usuario.nome;
-        document.getElementById("pTelefone").textContent = usuario.telefone;
-        document.getElementById("pEmail").textContent = usuario.email;
-        document.getElementById("pRua").textContent = usuario.rua;
-        document.getElementById("pNumero").textContent = usuario.numero;
-        document.getElementById("pComplemento").textContent = usuario.complemento;
-        document.getElementById("pCep").textContent = usuario.cep;
-      }
-      document.getElementById("perfil").classList.remove("hidden");
-      document.getElementById("loja").classList.add("hidden");
-      document.getElementById("perfilAdm").classList.add("hidden");
-    }
+  const admin = document.getElementById("adminProdutos");
+  admin.innerHTML = "";
+  produtos.forEach(p => {
+    admin.innerHTML += `
+      <div class="card">
+        <label>Nome</label>
+        <input type="text" id="admNome${p.id}" value="${p.nome}">
+        <label>Preço</label>
+        <input type="text" id="admPreco${p.id}" value="${p.preco}">
+        <label>Descrição</label>
+        <input type="text" id="admDescricao${p.id}" value="${p.descricao}">
+      </div>`;
+  });
+}
 
-    function mostrarPerfilAdm() {
-      const usuario = JSON.parse(localStorage.getItem("usuario"));
-      if (usuario) {
-        document.getElementById("admNome").value = usuario.nome;
-        document.getElementById("admTelefone").value = usuario.telefone;
-        document.getElementById("admEmail").value = usuario.email;
-        document.getElementById("admSenha").value = usuario.senha;
-        document.getElementById("admRua").value = usuario.rua;
-        document.getElementById("admNumero").value = usuario.numero;
-        document.getElementById("admComplemento").value = usuario.complemento;
-        document.getElementById("admCep").value = usuario.cep;
-      }
-      document.getElementById("perfilAdm").classList.remove("hidden");
-      document.getElementById("loja").classList.add("hidden");
-      document.getElementById("perfil").classList.add("hidden");
-    }
+async function salvarProdutos() {
+  const cards = document.querySelectorAll("#adminProdutos .card");
+  const atualizados = [...cards].map(card => {
+    const id = card.querySelector("input").id.replace("admNome", "");
+    return {
+      id: parseInt(id),
+      nome: document.getElementById("admNome" + id).value,
+      preco: parseFloat(document.getElementById("admPreco" + id).value),
+      descricao: document.getElementById("admDescricao" + id).value
+    };
+  });
 
-    function salvarInformacoes() {
-      const usuarioAtualizado = {
-        nome: document.getElementById("admNome").value,
-        telefone: document.getElementById("admTelefone").value,
-        email: document.getElementById("admEmail").value,
-        senha: document.getElementById("admSenha").value,
-        rua: document.getElementById("admRua").value,
-        numero: document.getElementById("admNumero").value,
-        complemento: document.getElementById("admComplemento").value,
-        cep: document.getElementById("admCep").value,
-      };
+  const r = await fetch("api/editar_produtos.php", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(atualizados)
+  }).then(res => res.json());
 
-      localStorage.setItem("usuario", JSON.stringify(usuarioAtualizado));
-      alert("Informações atualizadas com sucesso!");
-    }
+  if (r.status === "ok") {
+    alert("Produtos atualizados!");
+    carregarProdutos();
+  }
+}
 
-    function apagarConta() {
-      if (confirm("Tem certeza que deseja apagar esta conta?")) {
-        localStorage.removeItem("usuario");
-        alert("Conta apagada com sucesso!");
-        document.getElementById("sitePadaria").classList.add("hidden");
-        mostrarCadastro(); // Volta para tela de cadastro
-      }
-    }
+function toggleDescricao(card) {
+  const desc = card.querySelector(".descricao");
+  desc.style.display = desc.style.display === "block" ? "none" : "block";
+}
 
-    function toggleDescricao(card) {
-      const desc = card.querySelector(".descricao");
-      desc.style.display = desc.style.display === "block" ? "none" : "block";
-    }
+function logout() {
+  document.getElementById("sitePadaria").classList.add("hidden");
+  document.getElementById("login").classList.remove("hidden");
+}
 
-    function mostrarCadastro() {
-      document.getElementById("login").classList.add("hidden");
-      document.getElementById("cadastro").classList.remove("hidden");
-    }
+function mostrarLoja() {
+  document.getElementById("loja").classList.remove("hidden");
+  document.getElementById("perfil").classList.add("hidden");
+  document.getElementById("perfilAdm").classList.add("hidden");
+}
 
-    // Inicialização
-    window.onload = function() {
-      const usuario = localStorage.getItem("usuario");
-      if (!usuario) {
-        mostrarCadastro(); // Se não tiver usuário, abre cadastro
-      } else {
-        document.getElementById("login").classList.remove("hidden");
-      }
-    }
-  </script>
+function mostrarPerfil() {
+  if (window.usuario) {
+    document.getElementById("pNome").value = window.usuario.nome || "";
+    document.getElementById("pTelefone").value = window.usuario.telefone || "";
+    document.getElementById("pEmail").value = window.usuario.email || "";
+    document.getElementById("pRua").value = window.usuario.rua || "";
+    document.getElementById("pNumero").value = window.usuario.numero || "";
+    document.getElementById("pComplemento").value = window.usuario.complemento || "";
+    document.getElementById("pCep").value = window.usuario.cep || "";
+  }
+  document.getElementById("perfil").classList.remove("hidden");
+  document.getElementById("loja").classList.add("hidden");
+  document.getElementById("perfilAdm").classList.add("hidden");
+}
+
+function salvarPerfil() {
+  alert("Alteração de perfil no banco pode ser criada em outro endpoint PHP (ex: api/editar_usuario.php)");
+}
+
+function mostrarPerfilAdm() {
+  document.getElementById("perfilAdm").classList.remove("hidden");
+  document.getElementById("loja").classList.add("hidden");
+  document.getElementById("perfil").classList.add("hidden");
+  carregarProdutos();
+}
+
+function mostrarCadastro() {
+  document.getElementById("login").classList.add("hidden");
+  document.getElementById("cadastro").classList.remove("hidden");
+}
+
+window.onload = function() {
+  document.getElementById("login").classList.remove("hidden");
+};
+</script>
 </body>
 </html>
