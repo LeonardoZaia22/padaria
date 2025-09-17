@@ -39,9 +39,9 @@
     input:focus { border-color: #6b2e1f; box-shadow: 0 0 5px #6b2e1f77; }
 
     button {
-      width: 100%; padding: 14px; background: #6b2e1f;
-      color: white; border: none; border-radius: 25px;
-      cursor: pointer; font-size: 16px; margin-top: 15px;
+      padding: 10px 18px; background: #6b2e1f;
+      color: white; border: none; border-radius: 12px;
+      cursor: pointer; font-size: 14px; font-weight: bold;
       transition: 0.3s;
     }
     button:hover { background: #4d2015; transform: scale(1.05); }
@@ -165,6 +165,15 @@
       </div>
     </nav>
 
+    <!-- Introdução -->
+    <div id="introducao" style="padding:30px; text-align:center;">
+      <h2>Bem-vindo à Padaria Doce Sabor!</h2>
+      <p>
+        Aqui você encontra pães fresquinhos, bolos artesanais e doces que derretem na boca. 
+        Nossa missão é levar até você o verdadeiro sabor caseiro, feito com carinho e qualidade.
+      </p>
+    </div>
+
     <!-- Loja -->
     <div id="loja" class="padaria"></div>
 
@@ -184,6 +193,9 @@
     <!-- Admin -->
     <div id="perfilAdm" class="perfil hidden">
       <h2>Área do Administrador</h2>
+      <div style="margin-bottom:15px;">
+        <button onclick="adicionarCard()">➕ Adicionar Card</button>
+      </div>
       <div id="adminProdutos" class="grid"></div>
       <button onclick="salvarProdutos()">Salvar Alterações</button>
     </div>
@@ -255,13 +267,15 @@ async function carregarProdutos() {
   admin.innerHTML = "";
   produtos.forEach(p => {
     admin.innerHTML += `
-      <div class="card">
+      <div class="card" id="card${p.id}">
         <label>Nome</label>
         <input type="text" id="admNome${p.id}" value="${p.nome}">
         <label>Preço</label>
         <input type="text" id="admPreco${p.id}" value="${p.preco}">
         <label>Descrição</label>
         <input type="text" id="admDescricao${p.id}" value="${p.descricao}">
+        <button style="margin-top:10px; background:#b33; color:#fff; border:none; padding:6px 12px; border-radius:8px; cursor:pointer;"
+          onclick="apagarCard(${p.id})">🗑️ Apagar</button>
       </div>`;
   });
 }
@@ -269,7 +283,7 @@ async function carregarProdutos() {
 async function salvarProdutos() {
   const cards = document.querySelectorAll("#adminProdutos .card");
   const atualizados = [...cards].map(card => {
-    const id = card.querySelector("input").id.replace("admNome", "");
+    const id = card.id.replace("card", "");
     return {
       id: parseInt(id),
       nome: document.getElementById("admNome" + id).value,
@@ -335,6 +349,29 @@ function mostrarPerfilAdm() {
 function mostrarCadastro() {
   document.getElementById("login").classList.add("hidden");
   document.getElementById("cadastro").classList.remove("hidden");
+}
+
+function adicionarCard() {
+  const admin = document.getElementById("adminProdutos");
+  const idTemp = Date.now();
+  admin.innerHTML += `
+    <div class="card" id="card${idTemp}">
+      <label>Nome</label>
+      <input type="text" id="admNome${idTemp}" placeholder="Nome do produto">
+      <label>Preço</label>
+      <input type="text" id="admPreco${idTemp}" placeholder="0.00">
+      <label>Descrição</label>
+      <input type="text" id="admDescricao${idTemp}" placeholder="Descrição">
+      <button style="margin-top:10px; background:#b33; color:#fff; border:none; padding:6px 12px; border-radius:8px; cursor:pointer;"
+        onclick="apagarCard(${idTemp})">🗑️ Apagar</button>
+    </div>`;
+}
+
+function apagarCard(id) {
+  const card = document.getElementById("card" + id);
+  if (card) {
+    card.remove();
+  }
 }
 
 window.onload = function() {
