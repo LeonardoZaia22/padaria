@@ -165,14 +165,23 @@
       </div>
     </nav>
 
-    <!-- Introdução -->
+       <!-- Introdução -->
     <div id="introducao" style="padding:30px; text-align:center;">
       <h2>Bem-vindo à Padaria Doce Sabor!</h2>
-      <p>
-        Aqui você encontra pães fresquinhos, bolos artesanais e doces que derretem na boca. 
-        Nossa missão é levar até você o verdadeiro sabor caseiro, feito com carinho e qualidade.
+      <p style="max-width:700px; margin:auto; font-size:16px; line-height:1.6;">
+        Somos apaixonados por transformar cada receita em uma experiência única.  
+        Na <strong>Padaria Doce Sabor</strong>, você encontra pães sempre fresquinhos, preparados 
+        diariamente com ingredientes selecionados, além de bolos artesanais fofinhos e recheados 
+        de sabor, tortas irresistíveis e doces que derretem na boca.  
+      </p>
+      <p style="max-width:700px; margin:20px auto 0; font-size:16px; line-height:1.6;">
+        Nossa missão é trazer para você o <em>verdadeiro sabor caseiro</em>, feito com carinho, cuidado 
+        e qualidade. Seja para o café da manhã, para aquele lanche especial ou para adoçar os 
+        momentos em família, aqui você sempre vai encontrar o que há de melhor.  
+        Venha conhecer nossas delícias e sinta-se em casa!
       </p>
     </div>
+
 
     <!-- Loja -->
     <div id="loja" class="padaria"></div>
@@ -377,6 +386,39 @@ function apagarCard(id) {
 window.onload = function() {
   document.getElementById("login").classList.remove("hidden");
 };
+
+
+function mostrarLoja() {
+  document.getElementById("loja").classList.remove("hidden");
+  document.getElementById("introducao").classList.remove("hidden"); // mostra introdução
+  document.getElementById("perfil").classList.add("hidden");
+  document.getElementById("perfilAdm").classList.add("hidden");
+}
+
+function mostrarPerfil() {
+  if (window.usuario) {
+    document.getElementById("pNome").value = window.usuario.nome || "";
+    document.getElementById("pTelefone").value = window.usuario.telefone || "";
+    document.getElementById("pEmail").value = window.usuario.email || "";
+    document.getElementById("pRua").value = window.usuario.rua || "";
+    document.getElementById("pNumero").value = window.usuario.numero || "";
+    document.getElementById("pComplemento").value = window.usuario.complemento || "";
+    document.getElementById("pCep").value = window.usuario.cep || "";
+  }
+  document.getElementById("perfil").classList.remove("hidden");
+  document.getElementById("loja").classList.add("hidden");
+  document.getElementById("perfilAdm").classList.add("hidden");
+  document.getElementById("introducao").classList.add("hidden"); // esconde introdução
+}
+
+function mostrarPerfilAdm() {
+  document.getElementById("perfilAdm").classList.remove("hidden");
+  document.getElementById("loja").classList.add("hidden");
+  document.getElementById("perfil").classList.add("hidden");
+  document.getElementById("introducao").classList.add("hidden"); // esconde introdução
+  carregarProdutos();
+}
+
 </script>
 </body>
 </html>
